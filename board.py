@@ -76,7 +76,7 @@ def start_game():
     chosen = False
     while not chosen:                               # let the player choose one of the gamemodes, keep repeating untill the choice is clear
         game_mode_choice = int(input('Type [1, 2 or 3] to play: '))
-        if game_mode_choice < 4 or game_mode_choice > 0:
+        if game_mode_choice < 4 and game_mode_choice > 0:
             chosen = True
             return game_mode_choice
         else:

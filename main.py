@@ -49,7 +49,6 @@ def choose_game_mode():
     """
     This function lets the player choose between one of three gamemodes
     """
-    board.start_game()
     visuals.set_white()
     game_mode = board.start_game()
     if game_mode == 1:
