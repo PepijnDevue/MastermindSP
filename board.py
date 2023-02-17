@@ -13,15 +13,15 @@ def generate_secret_code():
     return secret_code
 
 
-def save_board(guess, check, board):
-    board.append([guess, check])
-    return board
+def save_board(guess, check, playing_board):
+    playing_board.append([guess, check])
+    return playing_board
 
 
-def display_board(board):
+def display_board(playing_board):
     os.system('CLS')
     print("The answer to each guess is given as (x, y) \n x is the amount of pins that are the good colour on the correct place, y is the amount of good colours at incorrect places\n")
-    for i in board:
+    for i in playing_board:
         for j in i[0]:
             print("{}{}".format(visuals.print_colours[j], visuals.pin), end='')
         print("{}    {}\n".format(visuals.print_colours['w'], i[1]))
