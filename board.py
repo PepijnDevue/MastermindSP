@@ -78,6 +78,8 @@ def start_game():
         game_mode_choice = int(input('Type [1, 2 or 3] to play: '))
         if game_mode_choice < 4 and game_mode_choice > 0:
             chosen = True
+            print(game_mode_choice)
+            time.sleep(3)
             return game_mode_choice
         else:
             print("Not a valid choice, please choose 1 2 or 3")

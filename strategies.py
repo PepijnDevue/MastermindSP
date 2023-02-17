@@ -41,15 +41,23 @@ def computer_guess(combinations):
     """
     frequency_dict = {}
     for guess_combination in combinations:
-        frequency_dict[guess_combination] = {}
+        frequency_dict[guess_combination] = {(0, 0): 0, (0, 1): 0, (0, 2): 0, (0, 3): 0, (0, 4): 0, (1, 0): 0, (1, 1): 0, (1, 2): 0, (1, 3): 0, (2, 0): 0, (2, 1): 0, (2, 2): 0, (3, 0): 0, (4, 0): 0}
         for code_combination in combinations:
             # check what feedback would be given with current code and guess and add to dict-in-dict to get frequency
             would_be_check = check_guess(list(guess_combination), list(code_combination))
-            print(would_be_check)#HARDCODE DE CHECKS IN DE DICT EN VOEG DAN GWN TOE
-            if would_be_check in frequency_dict[guess_combination]:
-                frequency_dict[guess_combination][would_be_check] += 1
-            else:
-                frequency_dict[guess_combination][would_be_check] = 1
+            frequency_dict[guess_combination][(would_be_check[0], would_be_check[1])] += 1
 
-    for i in frequency_dict:
-        print(i)
+    max_average = 10000
+    max_average_guess = ""
+    for guess_combinations in frequency_dict:
+        total = 0
+        check_count = 0
+        for frequency_check in frequency_dict[guess_combination]:
+            if frequency_dict[guess_combination][frequency_check] != 0:
+                total += frequency_dict[guess_combination][frequency_check]
+                check_count += 1
+        average = total / check_count
+        if average < max_average:
+            max_average = average
+            max_average_guess = guess_combinations
+    return list(max_average_guess) #works... but how

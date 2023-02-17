@@ -70,7 +70,7 @@ def computer_guesses_smart():
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game_computer(current_check, guesses_left)
         combinations = strategies.update_combinations(combinations, current_guess, current_check)
-    
+    choose_game_mode()
 
 def choose_game_mode():
     """
