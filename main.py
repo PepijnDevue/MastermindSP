@@ -8,29 +8,47 @@ import visuals
 import interactions   
 
 def player_guesses():
-    os.system('CLS')
+    """
+    This function lets the player play mastermind as the guesses
+
+    return: None
+    """
+    os.system('CLS')                                    # clear the screen
     playing_board = []
     guesses_left = 8
     playing = True
-    secret_code = board.generate_secret_code()
-    while playing:
+    secret_code = board.generate_secret_code()          # generate random code
+    while playing:                                      # keep playing untill there are no guesses left or the code is guessed correctly
         current_guess = interactions.player_take_guess()
         guesses_left -= 1
-        current_check = interactions.check_player_guess(current_guess, secret_code)
+        current_check = interactions.check_player_guess(current_guess, secret_code)             # get feedback for the player_guess
         playing_board = board.save_board(current_guess, current_check, playing_board)
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game(current_check, guesses_left)
         # debug print("current_guess = {}\n guesses_left = {}\n current_check = {}\n board = {}\n playing = {}\n secret_code = {}".format(current_guess, guesses_left, current_check, playing_board, playing, secret_code))
-    choose_game_mode()
+    choose_game_mode()                                  # return to the option screen to play again when done
 
 def computer_guesses_simple():
+    """
+    This function lets the computer guess a secret code the player thought of by using the simple alogirithm
+
+    return: None
+    """
     print(strategies.make_combinations())
     print("not ready yet")
 
 def computer_guesses_smart():
+    """
+    This function lets the computer guess a secret code the player thought of by using the excpected-case alogirithm
+
+    return: None
+    """
     print("not ready yet")
 
 def choose_game_mode():
+    """
+    This function lets the player choose between one of three gamemodes
+    """
     board.start_game()
     visuals.set_white()
     game_mode = board.start_game()
@@ -39,7 +57,7 @@ def choose_game_mode():
     elif game_mode == 2:
         computer_guesses_simple()
     else:
-        computer_guesses_smart
+        computer_guesses_smart()
 
 
 if __name__ == "__main__":
