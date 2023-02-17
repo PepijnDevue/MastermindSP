@@ -18,13 +18,14 @@ def save_board(guess, check, playing_board):
     return playing_board
 
 
-def display_board(playing_board):
+def display_board(playing_board, guesses_left):
     os.system('CLS')
     print("The answer to each guess is given as (x, y) \n x is the amount of pins that are the good colour on the correct place, y is the amount of good colours at incorrect places\n")
     for i in playing_board:
         for j in i[0]:
             print("{}{}".format(visuals.print_colours[j], visuals.pin), end='')
         print("{}    {}\n".format(visuals.print_colours['w'], i[1]))
+    print('You have {} guesses left'.format(guesses_left))
 
 
 def check_end_game(check, guesses_left):
