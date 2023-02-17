@@ -13,9 +13,12 @@ welcome_message = "Welc●me t● Mastermind!"              # a fun welcome mess
 colours = ["b", "r", "g", "y", "p", "w"]                # a list of colours used in the game
     
 def display_welcome_message():
+    """
+    print a fun welcome message by changing the colour every character
+    """
     for i in range(len(welcome_message)):
-        print("{}{}".format(list(print_colours.values())[i % 6], welcome_message[i]), end="")
+        print("{}{}".format(list(print_colours.values())[i % 6], welcome_message[i]), end="")   # print a colour preset followed by the character without ending the line
 
 def set_white():
-    print(print_colours["w"])
+    print(print_colours["w"])   # print the white preset so from now on everything printed will be white
 
