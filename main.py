@@ -1,10 +1,16 @@
-# imports
+# general imports
 import os
 import random
 import time
 
+# file imports
+from board import Board_Functions
+from strategies import Strategy_Functions
+from visuals import Visual_Functions
+from interactions import Interaction_Functions
 
-print_colours = {                                                                                                                           # dict of pre-sets to print in different colours
+
+print_colours = {                                       # dict of pre-sets to print in different colours
     "b": "\033[1;36;1m",
     "r": "\033[1;31;1m",
     "g": "\033[1;32;1m",
@@ -12,18 +18,19 @@ print_colours = {                                                               
     "p": "\033[1;35;1m",
     "w": "\033[1;37;1m"}
 
-pin = "●"
+pin = "●"                                               # the character used to display a pin 
 
-welcome_message = "Welc●me t● Mastermind!"
+welcome_message = "Welc●me t● Mastermind!"              # a fun welcome message
 
-colours = ["b", "r", "g", "y", "p", "w"]
+colours = ["b", "r", "g", "y", "p", "w"]                # a list of colours used in the game
+
 
 def generate_secret_code():
     """
     generates a random combination of any of the colours in the list colours, multiples allowed
     :return: the secret code as a string
     """
-    secret_code = random.choices(colours, k=4)
+    secret_code = random.choices(colours, k=4)          # make a list of 4 times a random instance of the list
     return secret_code
     
 def player_take_guess():
@@ -36,7 +43,7 @@ def player_take_guess():
                 invalid_guess = True
         if invalid_guess == False and len(played_guess) == 4:
             break
-    return list(played_guess)                                                                                                                # make a list of 4 times a random instance of the list
+    return list(played_guess)                    
 
 def check_player_guess(guess, secret_code):
     copy_guess = guess.copy()
