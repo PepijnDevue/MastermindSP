@@ -55,11 +55,11 @@ def check_end_game(check, guesses_left):
     """
     if check[0] == 4:                                   # if 4 pins with placed with the correct colour on the correct positions, the player has won
         print("You won!")
-        time.sleep(5)
+        time.sleep(20)
         return False
     elif guesses_left == 0:
         print("You are out of guesses, try again!")
-        time.sleep(5)
+        time.sleep(20)
         return False
     return True
 
@@ -95,10 +95,10 @@ def check_end_game_computer(check, guesses_left):
     """
     if check[0] == 4:                                   # if 4 pins with placed with the correct colour on the correct positions, the computer has won
         print("The computer guessed your code in {} turns".format(8-guesses_left))
-        time.sleep(10)
+        time.sleep(20)
         return False
     elif guesses_left == 0:
         print("The computer failed")
-        time.sleep(10)
+        time.sleep(20)
         return False
     return True
