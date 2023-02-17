@@ -43,5 +43,13 @@ def computer_guess(combinations):
     for guess_combination in combinations:
         frequency_dict[guess_combination] = {}
         for code_combination in combinations:
-            #check what feedback would be given with current code and guess and add to dict-in-dict to get frequency
-            pass
+            # check what feedback would be given with current code and guess and add to dict-in-dict to get frequency
+            would_be_check = check_guess(list(guess_combination), list(code_combination))
+            print(would_be_check)#HARDCODE DE CHECKS IN DE DICT EN VOEG DAN GWN TOE
+            if would_be_check in frequency_dict[guess_combination]:
+                frequency_dict[guess_combination][would_be_check] += 1
+            else:
+                frequency_dict[guess_combination][would_be_check] = 1
+
+    for i in frequency_dict:
+        print(i)

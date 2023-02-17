@@ -63,7 +63,7 @@ def computer_guesses_smart():
     secret_code = interactions.player_make_code()
     combinations = strategies.make_combinations()
     while playing:
-        current_guess = strategies.computer_guess()
+        current_guess = strategies.computer_guess(combinations)
         guesses_left -= 1
         current_check = interactions.check_guess(current_guess, secret_code)
         playing_board = board.save_board(current_guess, current_check, playing_board)
