@@ -34,8 +34,20 @@ def computer_guesses_simple():
 
     return: None
     """
-    print(strategies.make_combinations())
-    print("not ready yet")
+    os.system('CLS')
+    playing_board = []
+    guesses_left = 8
+    playing = True
+    secret_code = interactions.player_make_code()
+    combinations = strategies.make_combinations()
+    while playing:
+        current_guess = list(combinations[0])
+        guesses_left -= 1
+        current_check = interactions.check_guess(current_guess, secret_code)
+        playing_board = board.save_board(current_guess, current_check, playing_board)
+        board.display_board(playing_board, guesses_left)
+        playing = board.check_end_game_computer(current_check, guesses_left)
+        combinations = strategies.update_combinations(combinations, current_guess, current_check)
 
 def computer_guesses_smart():
     """

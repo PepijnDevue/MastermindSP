@@ -42,7 +42,7 @@ def display_board(playing_board, guesses_left):
         for pin in turn[0]:
             print("{}{}".format(visuals.print_colours[pin], visuals.pin), end='')       # print a pin in the colour needed by using the colour-preset
         print("{}    {}\n".format(visuals.print_colours['w'], turn[1]))                 # print the feedback in white
-    print('You have {} guesses left'.format(guesses_left))
+    print('{} guesses left'.format(guesses_left))
 
 
 def check_end_game(check, guesses_left):
@@ -81,3 +81,22 @@ def start_game():
             return game_mode_choice
         else:
             print("Not a valid choice, please choose 1 2 or 3")
+
+
+def check_end_game_computer(check, guesses_left):
+    """
+    checks whether the game has ended, if so, handle the ending of the game
+
+    check: a list containing feedback given for the current guess
+    guesses_left: an int telling how many guesses the player has left
+    return: a boolean telling if the game has ended
+    """
+    if check[0] == 4:                                   # if 4 pins with placed with the correct colour on the correct positions, the player has won
+        print("The computer guessed your code in {} turns".format(8-guesses_left))
+        time.sleep(10)
+        return False
+    elif guesses_left == 0:
+        print("The computer failed")
+        time.sleep(10)
+        return False
+    return True

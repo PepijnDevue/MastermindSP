@@ -40,3 +40,21 @@ def check_guess(guess, secret_code):
             copy_code[copy_code.index(copy_guess[i])] = 'x'     # replace the pin again with a mark
             check[1] += 1
     return check
+
+
+def player_make_code():
+    """
+    let the player think of a code so the computer can guess it
+
+    return: a list of 4 times one of the colours from the game
+    """
+    print("Think of a secret code containing only the following colours [{}B{}R{}G{}Y{}P{}W], an example code would be 'BRGY'".format(print_colours['b'], print_colours['r'], print_colours['g'], print_colours['y'], print_colours['p'], print_colours['w']))
+    while True:                                                 # let the player input a code untill it is a valid code
+        invalid_code = False
+        code = input("Secret code: ").lower()
+        for i in code:
+            if i not in colours:
+                invalid_code = True
+        if invalid_code == False and len(code) == 4:
+            break
+    return list(code) 
