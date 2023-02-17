@@ -21,4 +21,3 @@ def display_welcome_message():
 
 def set_white():
     print(print_colours["w"])   # print the white preset so from now on everything printed will be white
-

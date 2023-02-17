@@ -21,7 +21,7 @@ def player_guesses():
     while playing:                                      # keep playing untill there are no guesses left or the code is guessed correctly
         current_guess = interactions.player_take_guess()
         guesses_left -= 1
-        current_check = interactions.check_player_guess(current_guess, secret_code)             # get feedback for the player_guess
+        current_check = interactions.check_guess(current_guess, secret_code)             # get feedback for the player_guess
         playing_board = board.save_board(current_guess, current_check, playing_board)
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game(current_check, guesses_left)
