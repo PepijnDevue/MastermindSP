@@ -32,25 +32,15 @@ def computer_guesses_smart():
     print("not ready yet")
 
 def choose_game_mode():
-    os.system('CLS')
-    for i in range(len(visuals.welcome_message)):
-        print("{}{}".format(list(visuals.print_colours.values())[i % 6], visuals.welcome_message[i]), end="")
-    print(visuals.print_colours["w"])
-    print("\nChoose your game mode!!\n1. Player guesses\n2. Computer guesses simple\n3. Computer guesses smart")
-    chosen = False
-    while not chosen:
-        game_mode_choice = int(input('Type [1, 2 or 3] to play: '))
-        if game_mode_choice == 1:
-            chosen = True
-            player_guesses()
-        elif game_mode_choice == 2:
-            chosen = True
-            computer_guesses_simple()
-        elif game_mode_choice == 3:
-            chosen = True
-            computer_guesses_smart()
-        else:
-            print("Not a valid choice, please choose 1 2 or 3")
+    board.start_game()
+    visuals.set_white()
+    game_mode = board.start_game()
+    if game_mode == 1:
+        player_guesses()
+    elif game_mode == 2:
+        computer_guesses_simple()
+    else:
+        computer_guesses_smart
 
 
 if __name__ == "__main__":
