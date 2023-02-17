@@ -91,7 +91,7 @@ def check_end_game_computer(check, guesses_left):
     guesses_left: an int telling how many guesses the player has left
     return: a boolean telling if the game has ended
     """
-    if check[0] == 4:                                   # if 4 pins with placed with the correct colour on the correct positions, the player has won
+    if check[0] == 4:                                   # if 4 pins with placed with the correct colour on the correct positions, the computer has won
         print("The computer guessed your code in {} turns".format(8-guesses_left))
         time.sleep(10)
         return False

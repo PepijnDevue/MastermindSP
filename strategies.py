@@ -16,11 +16,19 @@ def make_combinations():
 
 
 def update_combinations(combinations, guess, check):
-    index_combination = 0
+    """
+    remove all combinations that don't add up with the given feedback
+
+    combinations: a list of all combinations that are still possible, every combination is a tuple
+    guess: a list containing the guess that was made
+    check: a list containing the feedback that was given
+    return: the updated list of possible combinations
+    """
+    index_combination = 0   # use whileloop and a counter to be able to change the counter based on whether or not a combination has been deleted
     while index_combination < len(combinations):
         combination_check = check_guess(guess, list(combinations[index_combination]))
-        if combination_check != check:
+        if combination_check != check:      # if the current combination would have gotten the same feedback, it could still be the secret_code
             del combinations[index_combination]
         else:
-            index_combination += 1
+            index_combination += 1  # move to the next combination, otherwise all other combinations would have moved to the left
     return combinations
