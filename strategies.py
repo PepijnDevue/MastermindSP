@@ -14,7 +14,7 @@ def make_combinations():
 
     return: the list of tuples
     """
-    combinations = list(product(colours, repeat=4)) # use itertools.product to get a list of all possible combinations of 4 characters long only containing the six colours
+    combinations = list(product(colours, repeat=4))     # use itertools.product to get a list of all possible combinations of 4 characters long only containing the six colours
     return combinations
 
 

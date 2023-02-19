@@ -18,16 +18,15 @@ def player_guesses():
     playing_board = []
     guesses_left = 8
     playing = True
-    secret_code = board.generate_secret_code()          # generate random code
+    secret_code = board.generate_secret_code()          # generate random secret code
     start_time = time.time()
     while playing:                                      # keep playing untill there are no guesses left or the code is guessed correctly
         current_guess = interactions.player_take_guess()
         guesses_left -= 1
-        current_check = interactions.check_guess(current_guess, secret_code)             # get feedback for the player_guess
+        current_check = interactions.check_guess(current_guess, secret_code)            # get feedback for the player_guess
         playing_board = board.save_board(current_guess, current_check, playing_board)
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game(current_check, guesses_left)
-        # debug print("current_guess = {}\n guesses_left = {}\n current_check = {}\n board = {}\n playing = {}\n secret_code = {}".format(current_guess, guesses_left, current_check, playing_board, playing, secret_code))
     print("It took {} seconds to play".format(round(time.time()-start_time, 2)))
     interactions.await_player_input()
     choose_game_mode()                                  # return to the option screen to play again when done
