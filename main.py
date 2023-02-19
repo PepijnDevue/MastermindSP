@@ -19,6 +19,7 @@ def player_guesses():
     guesses_left = 8
     playing = True
     secret_code = board.generate_secret_code()          # generate random code
+    start_time = time.time()
     while playing:                                      # keep playing untill there are no guesses left or the code is guessed correctly
         current_guess = interactions.player_take_guess()
         guesses_left -= 1
@@ -27,6 +28,7 @@ def player_guesses():
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game(current_check, guesses_left)
         # debug print("current_guess = {}\n guesses_left = {}\n current_check = {}\n board = {}\n playing = {}\n secret_code = {}".format(current_guess, guesses_left, current_check, playing_board, playing, secret_code))
+    print("It took {} seconds to play".format(round(time.time()-start_time, 2)))
     interactions.await_player_input()
     choose_game_mode()                                  # return to the option screen to play again when done
 
@@ -41,6 +43,7 @@ def computer_guesses_simple():
     guesses_left = 8
     playing = True
     secret_code = interactions.player_make_code()
+    start_time = time.time()
     combinations = strategies.make_combinations()
     while playing:
         current_guess = list(combinations[0])                                                       # guess the first combination that is possible
@@ -50,6 +53,7 @@ def computer_guesses_simple():
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game_computer(current_check, guesses_left)
         combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    print("It took {} seconds to run".format(round(time.time()-start_time, 2)))
     interactions.await_player_input()
     choose_game_mode()
 
@@ -64,6 +68,7 @@ def computer_guesses_smart():
     guesses_left = 8
     playing = True
     secret_code = interactions.player_make_code()
+    start_time = time.time()
     combinations = strategies.make_combinations()
     while playing:
         current_guess = strategies.computer_guess(combinations)
@@ -73,6 +78,7 @@ def computer_guesses_smart():
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game_computer(current_check, guesses_left)
         combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    print("It took {} seconds to run".format(round(time.time()-start_time, 2)))
     interactions.await_player_input()
     choose_game_mode()
 

@@ -1,12 +1,12 @@
 # general imports
 from itertools import product
-import time
 
 # file imports
 from visuals import colours
 from interactions import check_guess, await_player_input
 
-possible_feedback = [(0,0), (0,1), (0,2), (0,3), (0,4), (1,0), (1,1), (1,2), (1,3), (2,0), (2,1), (2,2), (3,0), (4,0)]
+possible_feedback_dict = {(0, 0): 0, (0, 1): 0, (0, 2): 0, (0, 3): 0, (0, 4): 0, (1, 0): 0, (1, 1): 0, (1, 2): 0, (1, 3): 0, (2, 0): 0, (2, 1): 0, (2, 2): 0, (3, 0): 0, (4, 0): 0}
+
 
 def make_combinations():
     """
@@ -42,7 +42,7 @@ def computer_guess(combinations):
     """
     frequency_dict = {}
     for guess_combination in combinations:
-        frequency_dict[guess_combination] = {(0, 0): 0, (0, 1): 0, (0, 2): 0, (0, 3): 0, (0, 4): 0, (1, 0): 0, (1, 1): 0, (1, 2): 0, (1, 3): 0, (2, 0): 0, (2, 1): 0, (2, 2): 0, (3, 0): 0, (4, 0): 0}
+        frequency_dict[guess_combination] = possible_feedback_dict.copy()
         for code_combination in combinations:
             would_be_check = check_guess(list(guess_combination), list(code_combination))
             frequency_dict[guess_combination][(would_be_check[0], would_be_check[1])] += 1
@@ -54,11 +54,8 @@ def computer_guess(combinations):
         for j in frequency_dict[i]:
             if frequency_dict[i][j] != 0:
                 frequency_list.append(frequency_dict[i][j])
-        #print(sum(frequency_list)/len(frequency_list), frequency_list)
         if sum(frequency_list)/len(frequency_list) < max_average:
             max_average = sum(frequency_list)/len(frequency_list)
             max_average_guess = i
 
-    #print(max_average, max_average_guess)
-    #await_player_input()
     return list(max_average_guess)
