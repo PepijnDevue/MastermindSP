@@ -3,7 +3,7 @@ from itertools import product
 
 # file imports
 from visuals import colours
-from interactions import check_guess, await_player_input
+from interactions import check_guess
 
 possible_feedback_dict = {(0, 0): 0, (0, 1): 0, (0, 2): 0, (0, 3): 0, (0, 4): 0, (1, 0): 0, (1, 1): 0, (1, 2): 0, (1, 3): 0, (2, 0): 0, (2, 1): 0, (2, 2): 0, (3, 0): 0, (4, 0): 0}
 
@@ -39,17 +39,20 @@ def update_combinations(combinations, guess, check):
 def computer_guess(combinations):
     """
     let the computer take the next guess out of the list using the expected_case strategy
+
+    combination: a list of combinations that could still be the secret code
+    return: the combination that should be guessed according to the expected_case strategy
     """
-    frequency_dict = {}
-    for guess_combination in combinations:
+    frequency_dict = {}             # create a frequency tabel, the columns are all combinations that could still be the secret code, the rows are all possible feedbacks given
+    for guess_combination in combinations:  # the cells tell how many times the feedback could be given to the according combination
         frequency_dict[guess_combination] = possible_feedback_dict.copy()
         for code_combination in combinations:
             would_be_check = check_guess(list(guess_combination), list(code_combination))
             frequency_dict[guess_combination][(would_be_check[0], would_be_check[1])] += 1
 
     max_average = 1000
-    max_average_guess = []
-    for i in frequency_dict:
+    max_average_guess = []          # afterwards calculate the average frequency of each column, save the combination that has the lowest frequency
+    for i in frequency_dict:        # a lower frequency equates to a higher chance to guess correctly soon
         frequency_list = []
         for j in frequency_dict[i]:
             if frequency_dict[i][j] != 0:
