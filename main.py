@@ -1,5 +1,6 @@
 # general imports
 import os
+import time
 
 # file imports
 import board

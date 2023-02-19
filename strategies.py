@@ -1,9 +1,10 @@
 # general imports
 from itertools import product
+import time
 
 # file imports
 from visuals import colours
-from interactions import check_guess
+from interactions import check_guess, await_player_input
 
 possible_feedback = [(0,0), (0,1), (0,2), (0,3), (0,4), (1,0), (1,1), (1,2), (1,3), (2,0), (2,1), (2,2), (3,0), (4,0)]
 
@@ -43,21 +44,21 @@ def computer_guess(combinations):
     for guess_combination in combinations:
         frequency_dict[guess_combination] = {(0, 0): 0, (0, 1): 0, (0, 2): 0, (0, 3): 0, (0, 4): 0, (1, 0): 0, (1, 1): 0, (1, 2): 0, (1, 3): 0, (2, 0): 0, (2, 1): 0, (2, 2): 0, (3, 0): 0, (4, 0): 0}
         for code_combination in combinations:
-            # check what feedback would be given with current code and guess and add to dict-in-dict to get frequency
             would_be_check = check_guess(list(guess_combination), list(code_combination))
             frequency_dict[guess_combination][(would_be_check[0], would_be_check[1])] += 1
 
-    max_average = 10000
-    max_average_guess = ""
-    for guess_combinations in frequency_dict:
-        total = 0
-        check_count = 0
-        for frequency_check in frequency_dict[guess_combination]:
-            if frequency_dict[guess_combination][frequency_check] != 0:
-                total += frequency_dict[guess_combination][frequency_check]
-                check_count += 1
-        average = total / check_count
-        if average < max_average:
-            max_average = average
-            max_average_guess = guess_combinations
-    return list(max_average_guess) #works... but how
+    max_average = 1000
+    max_average_guess = []
+    for i in frequency_dict:
+        frequency_list = []
+        for j in frequency_dict[i]:
+            if frequency_dict[i][j] != 0:
+                frequency_list.append(frequency_dict[i][j])
+        #print(sum(frequency_list)/len(frequency_list), frequency_list)
+        if sum(frequency_list)/len(frequency_list) < max_average:
+            max_average = sum(frequency_list)/len(frequency_list)
+            max_average_guess = i
+
+    #print(max_average, max_average_guess)
+    #await_player_input()
+    return list(max_average_guess)
