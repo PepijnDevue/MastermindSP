@@ -1,5 +1,4 @@
 # general imports
-import time
 import random
 import os
 
@@ -55,11 +54,9 @@ def check_end_game(check, guesses_left):
     """
     if check[0] == 4:                                   # if 4 pins with placed with the correct colour on the correct positions, the player has won
         print("You won!")
-        time.sleep(20)
         return False
     elif guesses_left == 0:
         print("You are out of guesses, try again!")
-        time.sleep(20)
         return False
     return True
 
@@ -78,8 +75,6 @@ def start_game():
         game_mode_choice = int(input('Type [1, 2 or 3] to play: '))
         if game_mode_choice < 4 and game_mode_choice > 0:
             chosen = True
-            print(game_mode_choice)
-            time.sleep(3)
             return game_mode_choice
         else:
             print("Not a valid choice, please choose 1 2 or 3")
@@ -95,10 +90,8 @@ def check_end_game_computer(check, guesses_left):
     """
     if check[0] == 4:                                   # if 4 pins with placed with the correct colour on the correct positions, the computer has won
         print("The computer guessed your code in {} turns".format(8-guesses_left))
-        time.sleep(20)
         return False
     elif guesses_left == 0:
         print("The computer failed")
-        time.sleep(20)
         return False
     return True

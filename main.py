@@ -26,6 +26,7 @@ def player_guesses():
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game(current_check, guesses_left)
         # debug print("current_guess = {}\n guesses_left = {}\n current_check = {}\n board = {}\n playing = {}\n secret_code = {}".format(current_guess, guesses_left, current_check, playing_board, playing, secret_code))
+    interactions.await_player_input()
     choose_game_mode()                                  # return to the option screen to play again when done
 
 def computer_guesses_simple():
@@ -48,6 +49,7 @@ def computer_guesses_simple():
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game_computer(current_check, guesses_left)
         combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    interactions.await_player_input()
     choose_game_mode()
 
 def computer_guesses_smart():
@@ -70,6 +72,7 @@ def computer_guesses_smart():
         board.display_board(playing_board, guesses_left)
         playing = board.check_end_game_computer(current_check, guesses_left)
         combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    interactions.await_player_input()
     choose_game_mode()
 
 def choose_game_mode():

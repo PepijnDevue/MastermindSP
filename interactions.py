@@ -57,4 +57,10 @@ def player_make_code():
                 invalid_code = True
         if invalid_code == False and len(code) == 4:
             break
-    return list(code) 
+    return list(code)
+
+def await_player_input():
+    """
+    let the script continue after the player has instructed to do so
+    """
+    go_next = input("Press enter to continue")
