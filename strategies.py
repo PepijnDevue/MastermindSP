@@ -27,7 +27,7 @@ def update_combinations(combinations, guess, check):
     check: a list containing the feedback that was given
     return: the updated list of possible combinations
     """
-    index_combination = 0   # use whileloop and a counter to be able to change the counter based on whether or not a combination has been deleted
+    index_combination = 0   # use while loop and a counter to be able to change the counter based on whether or not a combination has been deleted
     while index_combination < len(combinations):
         combination_check = check_guess(guess, list(combinations[index_combination]))
         if combination_check != check:      # if the current combination would have gotten the same feedback, it could still be the secret_code
@@ -43,7 +43,7 @@ def computer_guess(combinations):
     combination: a list of combinations that could still be the secret code
     return: the combination that should be guessed according to the expected_case strategy
     """
-    frequency_dict = {}             # create a frequency tabel, the columns are all combinations that could still be the secret code, the rows are all possible feedbacks given
+    frequency_dict = {}             # create a frequency table, the columns are all combinations that could still be the secret code, the rows are all possible feedbacks given
     for guess_combination in combinations:  # the cells tell how many times the feedback could be given to the according combination
         frequency_dict[guess_combination] = possible_feedback_dict.copy()
         for code_combination in combinations:

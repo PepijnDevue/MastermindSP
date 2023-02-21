@@ -8,7 +8,7 @@ def player_take_guess():
     return: a list of 4 times one of the colours from the game
     """
     print("Take a guess between one of the following colours [{}B{}R{}G{}Y{}P{}W], an example guess would be 'BRGY'".format(print_colours['b'], print_colours['r'], print_colours['g'], print_colours['y'], print_colours['p'], print_colours['w']))
-    while True:                                                 # let the player input a guess untill it is a valid guess
+    while True:                                                 # let the player input a guess until it is a valid guess
         invalid_guess = False
         played_guess = input("Guess: ").lower()
         for i in played_guess:
@@ -49,7 +49,7 @@ def player_make_code():
     return: a list of 4 times one of the colours from the game
     """
     print("Think of a secret code containing only the following colours [{}B{}R{}G{}Y{}P{}W], an example code would be 'BRGY'".format(print_colours['b'], print_colours['r'], print_colours['g'], print_colours['y'], print_colours['p'], print_colours['w']))
-    while True:                                                 # let the player input a code untill it is a valid code
+    while True:                                                 # let the player input a code until it is a valid code
         invalid_code = False
         code = input("Secret code: ").lower()
         for i in code:

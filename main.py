@@ -20,7 +20,7 @@ def player_guesses():
     playing = True
     secret_code = board.generate_secret_code()          # generate random secret code
     start_time = time.time()
-    while playing:                                      # keep playing untill there are no guesses left or the code is guessed correctly
+    while playing:                                      # keep playing until there are no guesses left or the code is guessed correctly
         current_guess = interactions.player_take_guess()
         guesses_left -= 1
         current_check = interactions.check_guess(current_guess, secret_code)            # get feedback for the player_guess
@@ -33,7 +33,7 @@ def player_guesses():
 
 def computer_guesses_simple():
     """
-    This function lets the computer guess a secret code the player thought of by using the simple alogirithm
+    This function lets the computer guess a secret code the player thought of by using the simple algorithm
 
     return: None
     """
@@ -58,7 +58,7 @@ def computer_guesses_simple():
 
 def computer_guesses_smart():
     """
-    This function lets the computer guess a secret code the player thought of by using the excpected-case alogirithm
+    This function lets the computer guess a secret code the player thought of by using the expected-case algorithm
 
     return: None
     """
@@ -83,7 +83,7 @@ def computer_guesses_smart():
 
 def choose_game_mode():
     """
-    This function lets the player choose between one of three gamemodes
+    This function lets the player choose between one of three game modes
     """
     visuals.set_white()
     game_mode = board.start_game()
