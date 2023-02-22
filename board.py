@@ -69,7 +69,7 @@ def start_game():
     os.system('CLS')
     visuals.display_welcome_message()
     visuals.set_white()
-    print("\nChoose your game mode!!\n1. Player guesses\n2. Computer guesses simple\n3. Computer guesses smart\n4. Computer guesses using the Pepijn strategy")
+    print("\nChoose your game mode!!\n1. Player guesses\n2. Computer guesses simple\n3. Computer guesses smart\n4. Computer guesses using an improved version of the simple algorithm.")
     chosen = False
     while not chosen:                               # let the player choose one of the game modes, keep repeating until the choice is clear
         game_mode_choice = int(input('Type [1, 2, 3 or 4] to play: '))
@@ -77,7 +77,7 @@ def start_game():
             chosen = True
             return game_mode_choice
         else:
-            print("Not a valid choice, please choose 1 2 or 3")
+            print("Not a valid choice, please choose 1 2 3 or 4")
 
 
 def check_end_game_computer(check, guesses_left):
