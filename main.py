@@ -72,7 +72,7 @@ def computer_guesses_expected_case():
     combinations = strategies.make_combinations()
     while playing:
         if guesses_left == 8:
-            current_guess = ['b', 'b', 'r', 'g']
+            current_guess = ['b', 'b', 'r', 'g']        # expected case has the standard starting guess of AABC, in this case its bbrg
         else:
             current_guess = strategies.computer_guess(combinations)
         guesses_left -= 1
@@ -87,7 +87,9 @@ def computer_guesses_expected_case():
 
 def computer_guesses_pepijn():
     """
-    
+    This function adds the first guess of entropy to a variation of the simple strategy
+
+    return: None
     """
     os.system('CLS')
     playing_board = []
@@ -96,10 +98,10 @@ def computer_guesses_pepijn():
     secret_code = interactions.player_make_code()
     start_time = time.time()
     combinations = strategies.make_combinations()
-    random.shuffle(combinations)
+    random.shuffle(combinations)        # shuffling the list makes it so the player cannot play into the simple strategy its weakness
     while playing:
         if guesses_left == 8:
-            current_guess = ['b', 'r', 'g', 'y']
+            current_guess = ['b', 'r', 'g', 'y']    # use the standard first guess of entropy to get the most information
         else:
             current_guess = list(combinations[0])
         guesses_left -= 1
