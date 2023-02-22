@@ -1,6 +1,7 @@
 # general imports
 import os
 import time
+import random
 
 # file imports
 import board
@@ -56,7 +57,7 @@ def computer_guesses_simple():
     interactions.await_player_input()
     choose_game_mode()
 
-def computer_guesses_smart():
+def computer_guesses_expected_case():
     """
     This function lets the computer guess a secret code the player thought of by using the expected-case algorithm
 
@@ -70,7 +71,37 @@ def computer_guesses_smart():
     start_time = time.time()
     combinations = strategies.make_combinations()
     while playing:
-        current_guess = strategies.computer_guess(combinations)
+        if guesses_left == 8:
+            current_guess = ['b', 'b', 'r', 'g']
+        else:
+            current_guess = strategies.computer_guess(combinations)
+        guesses_left -= 1
+        current_check = interactions.check_guess(current_guess, secret_code)
+        playing_board = board.save_board(current_guess, current_check, playing_board)
+        board.display_board(playing_board, guesses_left)
+        playing = board.check_end_game_computer(current_check, guesses_left)
+        combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    print("It took {} seconds to run".format(round(time.time()-start_time, 2)))
+    interactions.await_player_input()
+    choose_game_mode()
+
+def computer_guesses_pepijn():
+    """
+    
+    """
+    os.system('CLS')
+    playing_board = []
+    guesses_left = 8
+    playing = True
+    secret_code = interactions.player_make_code()
+    start_time = time.time()
+    combinations = strategies.make_combinations()
+    random.shuffle(combinations)
+    while playing:
+        if guesses_left == 8:
+            current_guess = ['b', 'r', 'g', 'y']
+        else:
+            current_guess = list(combinations[0])
         guesses_left -= 1
         current_check = interactions.check_guess(current_guess, secret_code)
         playing_board = board.save_board(current_guess, current_check, playing_board)
@@ -91,8 +122,10 @@ def choose_game_mode():
         player_guesses()
     elif game_mode == 2:
         computer_guesses_simple()
+    elif game_mode == 3:
+        computer_guesses_expected_case()
     else:
-        computer_guesses_smart()
+        computer_guesses_pepijn()
 
 
 if __name__ == "__main__":
