@@ -63,4 +63,4 @@ def await_player_input():
     """
     let the script continue after the player has instructed to do so
     """
-    input("Press enter to continue")
+    input("Press enter to continue")            # the script will wait until the player has hit the enter key
