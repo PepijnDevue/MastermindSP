@@ -25,7 +25,6 @@ def player_take_guess():
             break
     return list(played_guess) 
 
-
 def player_make_code():
     """
     let the player think of a code so the computer can guess it

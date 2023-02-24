@@ -6,7 +6,6 @@ from visuals import colours
 
 possible_feedback_dict = {(0, 0): 0, (0, 1): 0, (0, 2): 0, (0, 3): 0, (0, 4): 0, (1, 0): 0, (1, 1): 0, (1, 2): 0, (1, 3): 0, (2, 0): 0, (2, 1): 0, (2, 2): 0, (3, 0): 0, (4, 0): 0}
 
-
 def check_guess(guess, secret_code):
     """
     generate feedback to the guess with a given secret_code
@@ -37,7 +36,6 @@ def make_combinations():
     """
     combinations = list(product(colours, repeat=4))     # use itertools.product to get a list of all possible combinations of 4 characters long only containing the six colours
     return combinations
-
 
 def update_combinations(combinations, guess, check):
     """

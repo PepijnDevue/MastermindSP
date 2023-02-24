@@ -13,7 +13,6 @@ def generate_secret_code():
     secret_code = random.choices(visuals.colours, k=4)          # make a list of 4 times a random instance of the list
     return secret_code
 
-
 def save_board(guess, check, playing_board):
     """
     saves the move and check that have been mode together with previous moves
@@ -25,7 +24,6 @@ def save_board(guess, check, playing_board):
     """
     playing_board.append([guess, check])
     return playing_board
-
 
 def display_board(playing_board, guesses_left):
     """
@@ -42,7 +40,6 @@ def display_board(playing_board, guesses_left):
             print("{}{}".format(visuals.print_colours[pin], visuals.pin), end='')       # print a pin in the colour needed by using the colour-preset
         print("{}    {}\n".format(visuals.print_colours['w'], turn[1]))                 # print the feedback in white
     print('{} guesses left'.format(guesses_left))
-
 
 def check_end_game(check, guesses_left):
     """
@@ -78,7 +75,6 @@ def start_game():
             return game_mode_choice
         else:
             print("Not a valid choice, please choose 1 2 3 or 4")
-
 
 def check_end_game_computer(check, guesses_left):
     """
