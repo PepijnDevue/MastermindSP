@@ -1,6 +1,12 @@
+# general imports
+import os
+import time
+import random
+
 # file imports
 from visuals import print_colours, colours
-from board import generate_secret_code
+import board
+import strategies
 
 def player_take_guess():
     """
@@ -20,29 +26,6 @@ def player_take_guess():
     return list(played_guess) 
 
 
-def check_guess(guess, secret_code):
-    """
-    generate feedback to the guess with a given secret_code
-
-    guess: a list of 4 times on of the colours form the game that needs to be checked
-    secret_code: the code that the feedback is based on
-    return: a list of two ints containing the feedback
-    """
-    copy_guess = guess.copy()
-    copy_code = secret_code.copy()
-    check = [0, 0]
-    for i in range(len(copy_guess)):                            # first look for pins with right colours at the correct place
-        if copy_guess[i] == copy_code[i]:
-            copy_guess[i] = "X"                                 # replace those pins with marks to avoid confusion for the second part
-            copy_code[i] = 'x'
-            check[0] += 1
-    for i in range(len(copy_guess)):                            # now look for right colours at incorrect places
-        if copy_guess[i] in copy_code:
-            copy_code[copy_code.index(copy_guess[i])] = 'x'     # replace the pin again with a mark
-            check[1] += 1
-    return check
-
-
 def player_make_code():
     """
     let the player think of a code so the computer can guess it
@@ -57,7 +40,7 @@ def player_make_code():
             if i not in colours:
                 invalid_code = True
         if code == "x":
-            code = generate_secret_code()
+            code = board.generate_secret_code()
             break
         elif invalid_code == False and len(code) == 4:
             break
@@ -68,3 +51,105 @@ def await_player_input():
     let the script continue after the player has instructed to do so
     """
     input("Press enter to continue")            # the script will wait until the player has hit the enter key
+
+def player_guesses():
+    """
+    This function lets the player play mastermind as the guesses
+
+    return: None
+    """
+    os.system('CLS')                                    # clear the screen
+    playing_board = []
+    guesses_left = 8
+    playing = True
+    secret_code = board.generate_secret_code()          # generate random secret code
+    start_time = time.time()
+    while playing:                                      # keep playing until there are no guesses left or the code is guessed correctly
+        current_guess = player_take_guess()
+        guesses_left -= 1
+        current_check = strategies.check_guess(current_guess, secret_code)            # get feedback for the player_guess
+        playing_board = board.save_board(current_guess, current_check, playing_board)
+        board.display_board(playing_board, guesses_left)
+        playing = board.check_end_game(current_check, guesses_left)
+    print("It took {} seconds to play".format(round(time.time()-start_time, 2)))
+    await_player_input()
+
+def computer_guesses_simple():
+    """
+    This function lets the computer guess a secret code the player thought of by using the simple algorithm
+
+    return: None
+    """
+    os.system('CLS')
+    playing_board = []
+    guesses_left = 8
+    playing = True
+    secret_code = player_make_code()
+    start_time = time.time()
+    combinations = strategies.make_combinations()
+    while playing:
+        current_guess = list(combinations[0])                                                       # guess the first combination that is possible
+        guesses_left -= 1
+        current_check = strategies.check_guess(current_guess, secret_code)
+        playing_board = board.save_board(current_guess, current_check, playing_board)
+        board.display_board(playing_board, guesses_left)
+        playing = board.check_end_game_computer(current_check, guesses_left)
+        combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    print("It took {} seconds to run".format(round(time.time()-start_time, 2)))
+    await_player_input()
+
+def computer_guesses_expected_case():
+    """
+    This function lets the computer guess a secret code the player thought of by using the expected-case algorithm
+
+    return: None
+    """
+    os.system('CLS')
+    playing_board = []
+    guesses_left = 8
+    playing = True
+    secret_code = player_make_code()
+    start_time = time.time()
+    combinations = strategies.make_combinations()
+    while playing:
+        if guesses_left == 8:
+            current_guess = ['b', 'b', 'r', 'g']        # expected case has the standard starting guess of AABC, in this case its bbrg
+        else:
+            frequency_dict = strategies.generate_frequency_dict(combinations)
+            current_guess = strategies.computer_guess(frequency_dict)
+        guesses_left -= 1
+        current_check = strategies.check_guess(current_guess, secret_code)
+        playing_board = board.save_board(current_guess, current_check, playing_board)
+        board.display_board(playing_board, guesses_left)
+        playing = board.check_end_game_computer(current_check, guesses_left)
+        combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    print("It took {} seconds to run".format(round(time.time()-start_time, 2)))
+    await_player_input()
+
+def computer_guesses_new ():
+    """
+    This function adds the first guess of entropy to a variation of the simple strategy
+
+    return: None
+    """
+    os.system('CLS')
+    playing_board = []
+    guesses_left = 8
+    playing = True
+    secret_code = player_make_code()
+    start_time = time.time()
+    combinations = strategies.make_combinations()
+    random.shuffle(combinations)        # shuffling the list makes it so the player cannot play into the simple strategy its weakness
+    while playing:
+        if guesses_left == 8:
+            current_guess = ['b', 'r', 'g', 'y']    # use the standard first guess of entropy to get the most information
+        else:
+            current_guess = list(combinations[0])
+        guesses_left -= 1
+        current_check = strategies.check_guess(current_guess, secret_code)
+        playing_board = board.save_board(current_guess, current_check, playing_board)
+        board.display_board(playing_board, guesses_left)
+        playing = board.check_end_game_computer(current_check, guesses_left)
+        combinations = strategies.update_combinations(combinations, current_guess, current_check)
+    print("It took {} seconds to run".format(round(time.time()-start_time, 2)))
+    await_player_input()

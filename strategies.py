@@ -3,10 +3,31 @@ from itertools import product
 
 # file imports
 from visuals import colours
-from interactions import check_guess
 
 possible_feedback_dict = {(0, 0): 0, (0, 1): 0, (0, 2): 0, (0, 3): 0, (0, 4): 0, (1, 0): 0, (1, 1): 0, (1, 2): 0, (1, 3): 0, (2, 0): 0, (2, 1): 0, (2, 2): 0, (3, 0): 0, (4, 0): 0}
 
+
+def check_guess(guess, secret_code):
+    """
+    generate feedback to the guess with a given secret_code
+
+    guess: a list of 4 times on of the colours form the game that needs to be checked
+    secret_code: the code that the feedback is based on
+    return: a list of two ints containing the feedback
+    """
+    copy_guess = guess.copy()
+    copy_code = secret_code.copy()
+    check = [0, 0]
+    for i in range(len(copy_guess)):                            # first look for pins with right colours at the correct place
+        if copy_guess[i] == copy_code[i]:
+            copy_guess[i] = "X"                                 # replace those pins with marks to avoid confusion for the second part
+            copy_code[i] = 'x'
+            check[0] += 1
+    for i in range(len(copy_guess)):                            # now look for right colours at incorrect places
+        if copy_guess[i] in copy_code:
+            copy_code[copy_code.index(copy_guess[i])] = 'x'     # replace the pin again with a mark
+            check[1] += 1
+    return check
 
 def make_combinations():
     """
