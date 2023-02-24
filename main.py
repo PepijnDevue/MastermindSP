@@ -85,7 +85,7 @@ def computer_guesses_expected_case():
     interactions.await_player_input()
     choose_game_mode()
 
-def computer_guesses_new():
+def computer_guesses_new ():
     """
     This function adds the first guess of entropy to a variation of the simple strategy
 
@@ -132,3 +132,9 @@ def choose_game_mode():
 
 if __name__ == "__main__":
     choose_game_mode()
+
+
+
+
+
+    #alo Filip
