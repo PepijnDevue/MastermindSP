@@ -74,7 +74,8 @@ def computer_guesses_expected_case():
         if guesses_left == 8:
             current_guess = ['b', 'b', 'r', 'g']        # expected case has the standard starting guess of AABC, in this case its bbrg
         else:
-            current_guess = strategies.computer_guess(combinations)
+            frequency_dict = strategies.generate_frequency_dict(combinations)
+            current_guess = strategies.computer_guess(frequency_dict)
         guesses_left -= 1
         current_check = interactions.check_guess(current_guess, secret_code)
         playing_board = board.save_board(current_guess, current_check, playing_board)

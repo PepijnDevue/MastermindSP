@@ -1,5 +1,6 @@
 # file imports
 from visuals import print_colours, colours
+from board import generate_secret_code
 
 def player_take_guess():
     """
@@ -48,14 +49,17 @@ def player_make_code():
 
     return: a list of 4 times one of the colours from the game
     """
-    print("Think of a secret code containing only the following colours [{}B{}R{}G{}Y{}P{}W], an example code would be 'BRGY'".format(print_colours['b'], print_colours['r'], print_colours['g'], print_colours['y'], print_colours['p'], print_colours['w']))
+    print("Think of a secret code containing only the following colours [{}B{}R{}G{}Y{}P{}W], an example code would be 'BRGY'\nIf you want to use a random code type 'x'".format(print_colours['b'], print_colours['r'], print_colours['g'], print_colours['y'], print_colours['p'], print_colours['w']))
     while True:                                                 # let the player input a code until it is a valid code
         invalid_code = False
         code = input("Secret code: ").lower()
         for i in code:
             if i not in colours:
                 invalid_code = True
-        if invalid_code == False and len(code) == 4:
+        if code == "x":
+            code = generate_secret_code()
+            break
+        elif invalid_code == False and len(code) == 4:
             break
     return list(code)
 

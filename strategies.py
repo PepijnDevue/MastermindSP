@@ -36,22 +36,15 @@ def update_combinations(combinations, guess, check):
             index_combination += 1  # move to the next combination, otherwise all other combinations would have moved to the left
     return combinations
 
-def computer_guess(combinations):
+def computer_guess(frequency_dict):
     """
     let the computer take the next guess out of the list using the expected_case strategy
 
     combination: a list of combinations that could still be the secret code
     return: the combination that should be guessed according to the expected_case strategy
     """
-    frequency_dict = {}             # create a frequency table, the columns are all combinations that could still be the secret code, the rows are all possible feedbacks given
-    for guess_combination in combinations:  # the cells tell how many times the feedback could be given to the according combination
-        frequency_dict[guess_combination] = possible_feedback_dict.copy()
-        for code_combination in combinations:
-            would_be_check = check_guess(list(guess_combination), list(code_combination))
-            frequency_dict[guess_combination][(would_be_check[0], would_be_check[1])] += 1
-
     max_average = 1000
-    max_average_guess = []          # afterwards calculate the average frequency of each column, save the combination that has the lowest frequency
+    max_average_guess = []          # calculate the average frequency of each column, save the combination that has the lowest frequency
     for i in frequency_dict:        # a lower frequency equates to a higher chance to guess correctly soon
         frequency_list = []
         for j in frequency_dict[i]:
@@ -62,3 +55,18 @@ def computer_guess(combinations):
             max_average_guess = i
 
     return list(max_average_guess)
+
+def generate_frequency_dict(combinations):
+    """
+    generate a frequency table from the list of combinations
+
+    combinations: the list of all possible combinations left
+    return: a frequency table in as a dict with dicts in it
+    """
+    frequency_dict = {}             # create a frequency table, the columns are all combinations that could still be the secret code, the rows are all possible feedbacks given
+    for guess_combination in combinations:  # the cells tell how many times the feedback could be given to the according combination
+        frequency_dict[guess_combination] = possible_feedback_dict.copy()
+        for code_combination in combinations:
+            would_be_check = check_guess(list(guess_combination), list(code_combination))
+            frequency_dict[guess_combination][(would_be_check[0], would_be_check[1])] += 1
+    return frequency_dict
