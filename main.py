@@ -132,9 +132,3 @@ def choose_game_mode():
 
 if __name__ == "__main__":
     choose_game_mode()
-
-
-
-
-
-    #alo Filip
